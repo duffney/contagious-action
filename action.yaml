@@ -24,7 +24,7 @@ runs:
       shell: bash
       run: |
         docker build \
-          --build-arg contagious_version=${{ inputs.version }} \
+          --build-arg contagious_version=${{ inputs.contagious_version }} \
           -t contagious .
     - name: Run docker image
       id: contagious
