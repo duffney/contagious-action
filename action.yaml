@@ -1,0 +1,39 @@
+name: "Contagious Action"
+description: "List container images and tags"
+inputs:
+  contagious_version:
+    description: "Version of contagious"
+    required: false
+    default: "0.1.2"
+  registry:
+    description: "Name of container registry"
+    required: true
+    default: ""
+  next-tag:
+    description: "Next tag"
+    required: false
+    default: "false"
+outputs:
+  images:
+    description: ""
+    value: ${{ steps.contagious.outputs.images }}
+runs:
+  using: "composite"
+  steps:
+    - name: Build docker image
+      shell: bash
+      run: |
+        docker build \
+          --build-arg contagious_version=${{ inputs.version }} \
+          -t contagious .
+    - name: Run docker image
+      id: contagious
+      shell: bash
+      run: |
+        docker run contagious \
+          ${{ inputs.registry }} \
+          ${{ inputs.next-tag }}
+    # image: "Dockerfile"
+    # args:
+    #   - ${{ inputs.registry }}
+    #   - ${{ inputs.next-tag }}

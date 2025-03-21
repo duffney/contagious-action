@@ -1,0 +1,40 @@
+on: [push]
+
+jobs:
+  setup_matrix:
+    runs-on: ubuntu-latest
+    name: Local Test
+    steps:
+      # To use this repository's private action,
+      # you must check out the repository
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Docker login
+        uses: docker/login-action@v3.3.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Contagious
+        uses: ./ # Uses an action in the root directory
+        id: contagious
+        with:
+          contagious_version: "0.1.2"
+          registry: "ghcr.io/duffney"
+          next-tag: "true"
+      - name: Setup matrix
+        run: echo "matrix=$(echo '${{ steps.contagious.output.images }}' | jq -c .) >> $GITHUB_OUTPUT"
+  matrix:
+    runs-on: ubuntu-latest
+    needs: setup_matrix
+    strategy:
+      matrix: ${{fromJson(needs.setup_matrix.outputs.matrix)}}
+    steps:
+      - name: CurrentTag
+        run: |
+          CURRENT_TAG="${{ matrix.current_tag}}"
+          echo  "current tag is: $CURRENT_TAG"
+      - name: NextTag
+        run: |
+          NEXT_TAG="${{ matrix.next_tag}}"
+          echo  "Next tag will be: $NEXT_TAG"
