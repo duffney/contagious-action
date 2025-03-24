@@ -25,15 +25,16 @@ jobs:
   matrix:
     runs-on: ubuntu-latest
     needs: setup_matrix
-    strategy:
-      matrix:
-        inclued: ${{fromJson(needs.setup_matrix.outputs.images)}}
+    # strategy:
+    # matrix: ${{fromJson(needs.setup_matrix.outputs.images)}}
     steps:
-      - name: CurrentTag
-        run: |
-          CURRENT_TAG="${{ matrix.current_tag}}"
-          echo  "current tag is: $CURRENT_TAG"
-      - name: NextTag
-        run: |
-          NEXT_TAG="${{ matrix.next_tag}}"
-          echo  "Next tag will be: $NEXT_TAG"
+      - name: debug output
+        run: echo "${{ needs.setup_matrix.outputs.images }}"
+      # - name: CurrentTag
+      #   run: |
+      #     CURRENT_TAG="${{ matrix.current_tag}}"
+      #     echo  "current tag is: $CURRENT_TAG"
+      # - name: NextTag
+      #   run: |
+      #     NEXT_TAG="${{ matrix.next_tag}}"
+      #     echo  "Next tag will be: $NEXT_TAG"
