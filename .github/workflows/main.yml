@@ -22,10 +22,10 @@ jobs:
           contagious_version: "0.1.2"
           registry: "ghcr.io/duffney"
           next-tag: "true"
-      # - name: debug output
-      #   run: |
-      #     echo "Raw output: ${{ steps.contagious.outputs.images }}"
-      #     echo '${{ steps.contagious.outputs.images }}' | jq .
+      - name: debug output
+        run: |
+          echo "Raw output: ${{ steps.contagious.outputs.images }}"
+          echo '${{ steps.contagious.outputs.images }}'
       # - name: Setup matrix
       #   run: |
       #     MATRIX='${{ steps.contagious.outputs.images }}'
