@@ -30,7 +30,11 @@ runs:
       id: contagious
       shell: bash
       run: |
-        docker run contagious \
+        socket="/var/run/docker.sock"
+        docker run \
+          --mount-type=bind,source=${socket},target=/var/run/docker.sock \
+          --mount type=bind,source=${HOME}/.docker/config.json,target=/root/.docker/config.json \
+          contagious \
           ${{ inputs.registry }} \
           ${{ inputs.next-tag }}
     # image: "Dockerfile"
