@@ -7,8 +7,6 @@ jobs:
     outputs:
       images: ${{ steps.contagious.outputs.images }}
     steps:
-      # To use this repository's private action,
-      # you must check out the repository
       - name: Checkout
         uses: actions/checkout@v3
       - name: Docker login
@@ -24,16 +22,17 @@ jobs:
           contagious_version: "0.1.2"
           registry: "ghcr.io/duffney"
           next-tag: "true"
-      - name: debug output
-        run: |
-          echo "Raw output: ${{ steps.contagious.outputs.images }}"
-          echo '${{ steps.contagious.outputs.images }}'
   matrix:
     runs-on: ubuntu-latest
     needs: setup_matrix
-    name: Matrix Test
+    strategy:
+      matrix: ${{fromJson(needs.setup_matrix.outputs.images)}}
     steps:
-      - name: debug matrix output
+      - name: CurrentTag
         run: |
-          echo "Raw output: ${{ steps.setup_matrix.outputs.images}}"
-          echo '${{ steps.setup_matrix.outputs.images}}'
+          CURRENT_TAG="${{ matrix.current_tag}}"
+          echo  "current tag is: $CURRENT_TAG"
+      - name: NextTag
+        run: |
+          NEXT_TAG="${{ matrix.next_tag}}"
+          echo  "Next tag will be: $NEXT_TAG"
