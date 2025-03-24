@@ -23,7 +23,9 @@ jobs:
           registry: "ghcr.io/duffney"
           next-tag: "true"
       - name: Setup matrix
-        run: echo 'matrix=${{ steps.contagious.outputs.images }}' >> $GITHUB_OUTPUT
+        run: |
+          OUTPUT='${{ steps.contagious.outputs.images }}'
+          echo "matrix=$OUTPUT" >> $GITHUB_OUTPUT
       # run: echo "matrix=$(echo '${{ steps.contagious.outputs.images }}' | jq -r .) >> $GITHUB_OUTPUT"
   matrix:
     runs-on: ubuntu-latest
