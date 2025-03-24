@@ -27,7 +27,11 @@ jobs:
           echo "Raw output: ${{ steps.contagious.outputs.images }}"
           echo '${{ steps.contagious.outputs.images }}' | jq .
       - name: Setup matrix
-        run: echo "matrix=$(echo '${{ steps.contagious.outputs.images }}' | jq -c .)" >> $GITHUB_OUTPUT
+        run: |
+          MATRIX='${{ steps.contagious.outputs.images }}'
+          MATRIX="${MATRIX//$'\n'/}"
+          echo "matrix=${MATRIX}" >> $GITHUB_OUTPUT
+      # run: echo "matrix=$(echo '${{ steps.contagious.outputs.images }}' | jq -c .)" >> $GITHUB_OUTPUT
       - name: debug matrix output
         run: |
           echo "Raw output: ${{ steps.setup_matrix.outputs.matrix }}"
