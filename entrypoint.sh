@@ -11,4 +11,6 @@ else
     images=$(contagious list "$registry" -o json)
 fi
 
-echo "images=$images" >> $GITHUB_OUTPUT
+escaped_images=$(echo "$images" | jq -c -r @json)
+
+echo "images=$escaped_images" >> $GITHUB_OUTPUT
