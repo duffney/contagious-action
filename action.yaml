@@ -34,6 +34,8 @@ runs:
         docker run \
           --mount type=bind,source=${socket},target=/var/run/docker.sock \
           --mount type=bind,source=${HOME}/.docker/config.json,target=/root/.docker/config.json \
+          --mount type=bind,source=$GITHUB_OUTPUT,target=$GITHUB_OUTPUT \
+          -e GITHUB_OUTPUT \
           contagious \
           ${{ inputs.registry }} \
           ${{ inputs.next-tag }}
