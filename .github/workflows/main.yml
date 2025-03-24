@@ -35,7 +35,7 @@ jobs:
       - name: debug matrix output
         run: |
           echo "Raw output: ${{ steps.setup_matrix.outputs.matrix }}"
-          echo '${{ steps.setup_matrix.outputs.matrix }}' | jq .
+          echo "Matrix output: ${{ steps.setup_matrix.outputs.matrix }}"
   matrix:
     runs-on: ubuntu-latest
     needs: setup_matrix
