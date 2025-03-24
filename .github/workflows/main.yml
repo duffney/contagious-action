@@ -28,6 +28,7 @@ jobs:
     strategy:
       matrix:
         include: ${{fromJson(needs.setup_matrix.outputs.images)}}
+    name: Patch ${{ matrix.current_tag }}
     steps:
       - name: debug output
         run: echo "${{ needs.setup_matrix.outputs.images }}"
