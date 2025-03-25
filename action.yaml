@@ -29,10 +29,11 @@ runs:
           args+=" --next-tag"
         fi
         socket="/var/run/docker.sock"
-        docker run \
+        images=$(docker run \
           --mount type=bind,source=${socket},target=/var/run/docker.sock \
           --mount type=bind,source=${HOME}/.docker/config.json,target=/root/.docker/config.json \
-          --mount type=bind,source=$GITHUB_OUTPUT,target=$GITHUB_OUTPUT \
           -e GITHUB_OUTPUT \
           ghcr.io/duffney/contagious-action:v${{ inputs.contagious_version }} \
-          list ${{ inputs.registry }} --output json
+          list ${{ inputs.registry }} --output json)
+        images=$(echo "$images" | jq -c -r @json)
+        echo "images=$images" >> $GITHUB_OUTPUT
