@@ -1,7 +1,7 @@
 name: "Contagious Action"
 description: "List container images and tags"
 inputs:
-  version:
+  contagious_version:
     description: "Version of contagious"
     required: false
     default: "0.1.2"
@@ -30,6 +30,6 @@ runs:
           --mount type=bind,source=${HOME}/.docker/config.json,target=/root/.docker/config.json \
           --mount type=bind,source=$GITHUB_OUTPUT,target=$GITHUB_OUTPUT \
           -e GITHUB_OUTPUT \
-          ghcr.io/duffney/contagious:v${{ inputs.version }} \
+          ghcr.io/duffney/contagious:v${{ inputs.contagious_version }} \
           ${{ inputs.registry }} \
           ${{ inputs.next-tag }}
