@@ -35,4 +35,4 @@ runs:
           --mount type=bind,source=$GITHUB_OUTPUT,target=$GITHUB_OUTPUT \
           -e GITHUB_OUTPUT \
           ghcr.io/duffney/contagious-action:v${{ inputs.contagious_version }} \
-          "${args[@]}"
+          list ${{ inputs.registry }} --output json
