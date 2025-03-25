@@ -30,6 +30,6 @@ runs:
           --mount type=bind,source=${HOME}/.docker/config.json,target=/root/.docker/config.json \
           --mount type=bind,source=$GITHUB_OUTPUT,target=$GITHUB_OUTPUT \
           -e GITHUB_OUTPUT \
-          ghcr.io/duffney/contagious:v${{ inputs.contagious_version }} \
+          ghcr.io/duffney/contagious-action:v${{ inputs.contagious_version }} \
           ${{ inputs.registry }} \
           ${{ inputs.next-tag }}
