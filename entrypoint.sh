@@ -14,4 +14,3 @@ fi
 images=$(echo "$images" | jq -c -r @json)
 
 echo "images=$images" >> $GITHUB_OUTPUT
-# echo "images=$images" >> $GITHUB_OUTPUT

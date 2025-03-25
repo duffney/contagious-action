@@ -1,7 +1,7 @@
 name: "Contagious Action"
 description: "List container images and tags"
 inputs:
-  contagious_version:
+  version:
     description: "Version of contagious"
     required: false
     default: "0.1.2"
@@ -20,13 +20,7 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: Build docker image
-      shell: bash
-      run: |
-        docker build \
-          --build-arg contagious_version=${{ inputs.contagious_version }} \
-          -t contagious .
-    - name: Run docker image
+    - name: Docker run contagious action
       id: contagious
       shell: bash
       run: |
@@ -36,10 +30,6 @@ runs:
           --mount type=bind,source=${HOME}/.docker/config.json,target=/root/.docker/config.json \
           --mount type=bind,source=$GITHUB_OUTPUT,target=$GITHUB_OUTPUT \
           -e GITHUB_OUTPUT \
-          contagious \
+          ghcr.io/duffney/contagious:v${{ inputs.version }} \
           ${{ inputs.registry }} \
           ${{ inputs.next-tag }}
-    # image: "Dockerfile"
-    # args:
-    #   - ${{ inputs.registry }}
-    #   - ${{ inputs.next-tag }}

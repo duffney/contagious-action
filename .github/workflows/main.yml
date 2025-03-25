@@ -19,7 +19,7 @@ jobs:
         uses: ./ # Uses an action in the root directory
         id: contagious
         with:
-          contagious_version: "0.1.2"
+          contagious_version: "0.1.9"
           registry: "ghcr.io/duffney"
           next-tag: "true"
   matrix:
@@ -36,11 +36,3 @@ jobs:
         run: |
           echo "current tag is: ${{ matrix.current_tag}}"
           echo "next tag is: ${{ matrix.next_tag}}"
-      # - name: CurrentTag
-      #   run: |
-      #     CURRENT_TAG="${{ matrix.current_tag}}"
-      #     echo  "current tag is: $CURRENT_TAG"
-      # - name: NextTag
-      #   run: |
-      #     NEXT_TAG="${{ matrix.next_tag}}"
-      #     echo  "Next tag will be: $NEXT_TAG"
