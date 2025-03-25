@@ -19,11 +19,8 @@ jobs:
         uses: ./ # Uses an action in the root directory
         id: contagious
         with:
-          contagious_version: "0.1.11"
+          contagious_version: "0.1.0"
           registry: "ghcr.io/duffney"
-          next-tag: "true"
-      - name: debug output
-        run: echo "${{ steps.contagious.outputs.images }}"
   matrix:
     runs-on: ubuntu-latest
     needs: setup_matrix

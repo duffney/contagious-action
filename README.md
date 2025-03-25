@@ -10,7 +10,7 @@ This action generates a matrix of container image tags to be used by Copacetic f
 
 ## Outputs
 
-## `matrix`
+## `images`
 
 The matrix of container image tags to be used by Copacetic for patching.
 
@@ -18,8 +18,8 @@ The matrix of container image tags to be used by Copacetic for patching.
 
 ```yaml
 #TODO: include docker login step
-uses: actions/duffney/contagious@v1
+uses: actions/duffney/contagious@main
 with:
+  contagious_version: '0.1.0'
   registry: 'ghcr.io/duffney'
-  next-tag: "true"
 ```
