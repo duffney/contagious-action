@@ -34,6 +34,6 @@ runs:
           --mount type=bind,source=${HOME}/.docker/config.json,target=/root/.docker/config.json \
           -e GITHUB_OUTPUT \
           ghcr.io/duffney/contagious-action:v${{ inputs.contagious_version }} \
-          list ${{ inputs.registry }} --output json)
+          list ${{ inputs.registry }} --next-tag --output json)
         images=$(echo "$images" | jq -c -r @json)
         echo "images=$images" >> $GITHUB_OUTPUT
