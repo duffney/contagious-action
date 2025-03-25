@@ -24,6 +24,10 @@ runs:
       id: contagious
       shell: bash
       run: |
+        args="list ${{ inputs.registry }} --output json"
+        if [ "${{ inputs.next-tag }}" == "true" ]; then
+          args+=" --next-tag"
+        fi
         socket="/var/run/docker.sock"
         docker run \
           --mount type=bind,source=${socket},target=/var/run/docker.sock \
@@ -31,5 +35,4 @@ runs:
           --mount type=bind,source=$GITHUB_OUTPUT,target=$GITHUB_OUTPUT \
           -e GITHUB_OUTPUT \
           ghcr.io/duffney/contagious-action:v${{ inputs.contagious_version }} \
-          ${{ inputs.registry }} \
-          ${{ inputs.next-tag }}
+          "${args[@]}"
