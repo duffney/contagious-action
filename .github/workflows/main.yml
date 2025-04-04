@@ -19,7 +19,7 @@ jobs:
         uses: ./ # Uses an action in the root directory
         id: contagious
         with:
-          contagious_version: "0.1.1"
+          contagious_version: "0.1.2"
           registry: "ghcr.io/duffney"
   matrix:
     runs-on: ubuntu-latest

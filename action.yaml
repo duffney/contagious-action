@@ -4,7 +4,7 @@ inputs:
   contagious_version:
     description: "Version of contagious"
     required: false
-    default: "0.1.0"
+    default: "0.1.2"
   registry:
     description: "Name of container registry"
     required: true
